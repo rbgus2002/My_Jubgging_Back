@@ -11,6 +11,6 @@ public class TestController {
 
     @RequestMapping("/test")
     public List<String> LogTest(){
-        return Arrays.asList("안녕하세요", "Hello");
+        return Arrays.asList("안녕하세요.", "Hello");
     }
 }
