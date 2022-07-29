@@ -25,8 +25,8 @@ dependencies {
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	implementation group: 'org.javassist', name: 'javassist', version: '3.15.0-GA'
-	implementation group: 'org.mariadb.jdbc', name: 'mariadb-java-client', version: '2.7.0'
-	runtimeOnly 'org.mariadb.jdbc:mariadb-java-client'
+	implementation 'org.springframework.boot:spring-boot-starter-jdbc'
+	implementation 'mysql:mysql-connector-java'
 }
 
 tasks.named('test') {
