@@ -6,7 +6,7 @@ import lombok.Setter;
 import javax.persistence.*;
 
 @Entity
-@Getter
+@Getter @Setter
 public class User {
 
     @Id @GeneratedValue
