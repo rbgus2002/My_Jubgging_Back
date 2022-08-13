@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
 public class Board {
     @Id @GeneratedValue
     @Column(name = "board_id")
-    private int id;
+    private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")

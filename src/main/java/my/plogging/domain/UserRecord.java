@@ -1,16 +1,20 @@
 package my.plogging.domain;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.persistence.*;
-import java.sql.Time;
 import java.time.LocalDate;
 
 @Entity
 @IdClass(UserRecordID.class)
+@Getter @Setter
 public class UserRecord {
 
     @Id
-    @Column(name = "user_id")
-    private int userId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    private User user;
 
     @Id
     private LocalDate date;

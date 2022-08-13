@@ -5,7 +5,7 @@ import javax.persistence.*;
 @Entity
 public class BoardRegion {
     @Id @GeneratedValue
-    private int id;
+    private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "board_id")

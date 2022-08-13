@@ -7,7 +7,7 @@ import java.time.LocalDateTime;
 public class Comment {
 
     @Id @GeneratedValue
-    private int id;
+    private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")

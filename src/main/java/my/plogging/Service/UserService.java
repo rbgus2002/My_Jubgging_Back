@@ -11,16 +11,5 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 public class UserService {
 
-    private final UserRepository userRepository;
 
-    @Transactional
-    public Long join(User user){
-        userRepository.save(user);
-        System.out.println("hello");
-        return user.getId();
-    }
-
-    public User findOne(Long userId) {
-        return userRepository.findOne(userId);
-    }
 }

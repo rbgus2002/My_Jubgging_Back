@@ -8,7 +8,7 @@ import java.time.LocalDate;
 @Data
 public class UserRecordID implements Serializable {
 
-    private int userId;
+    private Long user;
 
     private LocalDate date;
 }
