@@ -21,25 +21,25 @@ class UserServiceTest {
     @Autowired UserRepository userRepository;
     @Autowired UserRecordRepository userRecordRepository;
 
-    @Test
-    public void 회원가입() throws Exception {
-        //given
-        User user = new User();
-        user.setName("jin");
-
-        UserRecord userRecord = new UserRecord();
-        userRecord.setUser(user);
-        userRecord.setDate(LocalDate.now());
-
-        //when
-        User save = userRepository.save(user);
-        Optional<User> findUser = userRepository.findById(save.getId());
-
-        userRecordRepository.save(userRecord);
-
-
-
-        //then
-    }
+//    @Test
+//    public void 회원가입() throws Exception {
+//        //given
+////        User user = new User();
+////        user.setName("jin");
+////
+////        UserRecord userRecord = new UserRecord();
+////        userRecord.setUser(user);
+////        userRecord.setDate(LocalDate.now());
+////
+////        //when
+////        User save = userRepository.save(user);
+////        Optional<User> findUser = userRepository.findById(save.getId());
+////
+////        userRecordRepository.save(userRecord);
+//
+//
+//
+//        //then
+//    }
 
 }
