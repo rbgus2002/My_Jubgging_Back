@@ -25,5 +25,6 @@ public class BoardController {
         Map<String, Long> map = new HashMap<>();
         map.put("boardId", boardId);
         return map;
+
     }
 }
