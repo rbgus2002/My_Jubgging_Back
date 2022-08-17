@@ -19,10 +19,7 @@ public class TestController {
     private final UserService userService;
     private final BoardService boardService;
 
-    @PostMapping("/user/join")
-    public Long userJoin(@RequestBody User user){
-        return userService.join(user);
-    } //임시 -> DTO로 받기
+
 
     @GetMapping("/test")
     public Map<String, Object> test(){
