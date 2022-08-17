@@ -19,19 +19,18 @@ public class BoardSaveRequestDTO {
     private String kakaoChatAddress;
     private String place;
 
-    @Builder
-    public BoardSaveRequestDTO(Long userId, String region1, String region2, String region3, String title, String content, int peopleNum, String possibleGender, String localDate, String localTime, String kakaoChatAddress, String place) {
-        this.userId = userId;
-        this.region1 = region1;
-        this.region2 = region2;
-        this.region3 = region3;
-        this.title = title;
-        this.content = content;
-        this.peopleNum = peopleNum;
-        this.possibleGender = possibleGender;
-        this.localDate = localDate;
-        this.localTime = localTime;
-        this.kakaoChatAddress = kakaoChatAddress;
-        this.place = place;
-    }
+//    public BoardSaveRequestDTO(Long userId, String region1, String region2, String region3, String title, String content, int peopleNum, String possibleGender, String localDate, String localTime, String kakaoChatAddress, String place) {
+//        this.userId = userId;
+//        this.region1 = region1;
+//        this.region2 = region2;
+//        this.region3 = region3;
+//        this.title = title;
+//        this.content = content;
+//        this.peopleNum = peopleNum;
+//        this.possibleGender = possibleGender;
+//        this.localDate = localDate;
+//        this.localTime = localTime;
+//        this.kakaoChatAddress = kakaoChatAddress;
+//        this.place = place;
+//    }
 }

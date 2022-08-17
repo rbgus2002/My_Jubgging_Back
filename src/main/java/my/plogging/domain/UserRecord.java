@@ -21,5 +21,4 @@ public class UserRecord {
 
     private int walkingNum;
     private int walkingTime;
-
 }

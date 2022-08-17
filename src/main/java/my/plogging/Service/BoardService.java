@@ -2,9 +2,11 @@ package my.plogging.Service;
 
 import lombok.RequiredArgsConstructor;
 import my.plogging.DTO.BoardSaveRequestDTO;
+import my.plogging.Repository.BoardRegionRepository;
 import my.plogging.Repository.BoardRepository;
 import my.plogging.Repository.UserRepository;
 import my.plogging.domain.Board;
+import my.plogging.domain.BoardRegion;
 import my.plogging.domain.User;
 import org.springframework.stereotype.Service;
 
@@ -17,11 +19,11 @@ import java.util.StringTokenizer;
 public class BoardService {
     private final BoardRepository boardRepository;
     private final UserRepository userRepository;
+    private final BoardRegionRepository boardRegionRepository;
 
-    public Board toEntity(BoardSaveRequestDTO dto){
+    public Board BoardSaveDTOtoEntity(BoardSaveRequestDTO dto) {
         // set user
         User user = userRepository.findById(dto.getUserId()).get();
-        System.out.println(user.getName());
 
         // set date
         LocalDate localDate;
@@ -52,11 +54,24 @@ public class BoardService {
                 .build();
     }
 
-    public long boardSave(BoardSaveRequestDTO dto){
-        //userid 존재하는 지 체크 (exception handling)
 
-        Board board = toEntity(dto);
+    public Long boardSave(BoardSaveRequestDTO dto) {
+        // userid 존재하는 지 체크 (exception handling)
+
+
+        // 게시물 저장
+        Board board = BoardSaveDTOtoEntity(dto);
         boardRepository.save(board);
+
+        //Region 저장
+        BoardRegion boardRegion = BoardRegion.builder()
+                .board(board)
+                .region1(dto.getRegion1())
+                .region2(dto.getRegion2())
+                .region3(dto.getRegion3())
+                .build();
+        boardRegionRepository.save(boardRegion);
+
         return board.getId();
     }
 }

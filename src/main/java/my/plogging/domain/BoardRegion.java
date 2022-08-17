@@ -1,8 +1,12 @@
 package my.plogging.domain;
 
+import lombok.Builder;
+import lombok.NoArgsConstructor;
+
 import javax.persistence.*;
 
 @Entity
+@NoArgsConstructor
 public class BoardRegion {
     @Id @GeneratedValue
     private Long id;
@@ -14,4 +18,12 @@ public class BoardRegion {
     private String region1;
     private String region2;
     private String region3;
+
+    @Builder
+    public BoardRegion(Board board, String region1, String region2, String region3) {
+        this.board = board;
+        this.region1 = region1;
+        this.region2 = region2;
+        this.region3 = region3;
+    }
 }
