@@ -1,12 +1,14 @@
 package my.plogging.domain;
 
 import lombok.Builder;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
 @Entity
 @NoArgsConstructor
+@Getter
 public class BoardRegion {
     @Id @GeneratedValue
     private Long id;

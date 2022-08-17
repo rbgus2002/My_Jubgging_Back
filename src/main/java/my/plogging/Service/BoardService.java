@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.StringTokenizer;
+import java.util.*;
 
 @RequiredArgsConstructor
 @Service
@@ -55,7 +55,7 @@ public class BoardService {
     }
 
 
-    public Long boardSave(BoardSaveRequestDTO dto) {
+    public Long saveBoard(BoardSaveRequestDTO dto) {
         // userid 존재하는 지 체크 (exception handling)
 
 
@@ -73,5 +73,29 @@ public class BoardService {
         boardRegionRepository.save(boardRegion);
 
         return board.getId();
+    }
+
+    public List getBoardLists(String targetRegion) {
+        // scan Board table
+        List<Board> list = boardRepository.findAll();
+
+        // board_id 통해 BoardRegion에서 get item
+        // get 해온 item에서 loop돌며 targetRegion이랑 같은 거 있나 찾기
+
+        List<Board> targetList = new ArrayList<>();
+        for (Board board : list) {
+            BoardRegion boardRegion = boardRegionRepository.findByBoardId(board.getId());
+            // 같은 거 있으면 list에 append
+            if(boardRegion.getRegion1().equals(targetRegion) || boardRegion.getRegion2().equals(targetRegion) || boardRegion.getRegion3().equals(targetRegion)){
+                targetList.add(board);
+            }
+        }
+
+        // Result Map에 list 넣고 리턴
+//        Map<String, Object> answer = new HashMap<>();
+//        answer.put("Results", targetList);
+//        System.out.println(answer.get("Results").toString());
+//        return answer;
+        return targetList;
     }
 }

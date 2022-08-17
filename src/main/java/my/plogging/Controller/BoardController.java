@@ -3,12 +3,10 @@ package my.plogging.Controller;
 import lombok.RequiredArgsConstructor;
 import my.plogging.DTO.BoardSaveRequestDTO;
 import my.plogging.Service.BoardService;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -19,12 +17,19 @@ public class BoardController {
 
     @PostMapping("")
     public Map boardSave(@RequestBody BoardSaveRequestDTO dto){
-        Long boardId = boardService.boardSave(dto);
+        Long boardId = boardService.saveBoard(dto);
 
         // variable to json (map)
         Map<String, Long> map = new HashMap<>();
         map.put("boardId", boardId);
-        return map;
 
+        return map;
     }
+
+    @GetMapping("")
+    public List boardPrints(@RequestParam("regionName") String regionName){
+        return boardService.getBoardLists(regionName);
+    }
+
+
 }
