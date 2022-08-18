@@ -9,5 +9,6 @@ import java.util.List;
 import java.util.Optional;
 
 public interface BoardRepository extends JpaRepository<Board, Long> {
-
+    @Override
+    Optional<Board> findById(Long aLong);
 }

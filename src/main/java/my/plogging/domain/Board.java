@@ -3,6 +3,7 @@ package my.plogging.domain;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -11,6 +12,7 @@ import java.time.LocalTime;
 
 @Entity
 @Getter
+@Setter
 @NoArgsConstructor
 public class Board {
     @Id @GeneratedValue

@@ -7,14 +7,16 @@ import my.plogging.Service.UserService;
 import my.plogging.domain.User;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Map;
+
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/user")
 public class UserController {
     private final UserService userService;
 
-    @PostMapping("/user/join")
-    public Long userJoin(@RequestBody User user){
+    @PostMapping("/join")
+    public Map userJoin(@RequestBody User user){
         return userService.join(user);
     } //임시 -> DTO로 받기
 

@@ -17,6 +17,7 @@ public class User {
     private Long id;
 
     private String name;
+    private String nickName;
 
     private int point;
 
@@ -29,8 +30,9 @@ public class User {
     private int heart;
 
     @Builder
-    public User(String name, String gender, String address){
+    public User(String name, String nickName, String gender, String address){
         this.name = name;
+        this.nickName = nickName;
         this.point = 0;
         this.gender = gender;
         this.address = address;

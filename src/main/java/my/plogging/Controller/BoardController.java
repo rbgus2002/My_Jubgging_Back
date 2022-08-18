@@ -1,6 +1,7 @@
 package my.plogging.Controller;
 
 import lombok.RequiredArgsConstructor;
+import my.plogging.DTO.BoardResponseDTO;
 import my.plogging.DTO.BoardSaveRequestDTO;
 import my.plogging.Service.BoardService;
 import org.springframework.web.bind.annotation.*;
@@ -17,19 +18,32 @@ public class BoardController {
 
     @PostMapping("")
     public Map boardSave(@RequestBody BoardSaveRequestDTO dto){
-        Long boardId = boardService.saveBoard(dto);
-
-        // variable to json (map)
-        Map<String, Long> map = new HashMap<>();
-        map.put("boardId", boardId);
-
-        return map;
+        return boardService.saveBoard(dto);
     }
 
     @GetMapping("")
-    public List boardPrints(@RequestParam("regionName") String regionName){
+    public Map boardPrints(@RequestParam("regionName") String regionName){
         return boardService.getBoardLists(regionName);
+    }
+
+    @GetMapping("/spec")
+    public BoardResponseDTO boardPrint(@RequestParam("boardId") Long boardId){
+        return boardService.getBoard(boardId);
+    }
+
+    @DeleteMapping("")
+    public Map boardDelete(@RequestParam("boardId") Long boardId){
+        return boardService.deleteBoard(boardId);
     }
 
 
 }
+
+/*
+{"Results":
+    [
+        {"date":"2022-08-18","region1":"상도동","modifiedTime":"2022-08-17T15:28:02.24721","region2":"봉천동","region3":"흑석동","boardId":13,"nowAttendingNum":1,"title":"구함구함구함구함구함구함","peopleNum":4,"content":"플로깅 ㄱ"},
+        {"date":"2022-08-18","region1":"상도동","modifiedTime":"2022-08-17T16:07:57.613774","region2":"봉천동","region3":"흑석동","boardId":15,"nowAttendingNum":1,"title":"구함구함구함구함구함구함","peopleNum":4,"content":"플로깅 ㄱ"}
+    ]
+}
+ */
