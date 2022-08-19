@@ -28,4 +28,10 @@ public class BoardRegion {
         this.region2 = region2;
         this.region3 = region3;
     }
+
+    public void updateRegion(String region1, String region2, String region3){
+        this.region1 = region1;
+        this.region2 = region2;
+        this.region3 = region3;
+    }
 }

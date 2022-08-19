@@ -94,6 +94,10 @@ public class BoardService {
         // get 해온 item에서 loop돌며 targetRegion이랑 같은 거 있나 찾기
         List<Map> targetList = new ArrayList<>();
         for (Board board : list) {
+            // 레코드 삭제 체크
+            if(board.getIsUsed() == 'N')
+                continue;
+
             BoardRegion boardRegion = boardRegionRepository.findByBoardId(board.getId());
             // 같은 거 있으면 list에 append
             if(boardRegion.getRegion1().equals(targetRegion) || boardRegion.getRegion2().equals(targetRegion) || boardRegion.getRegion3().equals(targetRegion)){
@@ -122,8 +126,7 @@ public class BoardService {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "boardId error");
         }
 
-
-        //User 객체 생성
+        // User 객체 생성
         User user = board.get().getUser();
 
         // board를 BoardResponseDTO
@@ -141,24 +144,95 @@ public class BoardService {
         return dto;
     }
 
-    public Map deleteBoard(Long boardId){ // 미완성
+    public Map deleteBoard(Long boardId){
         Optional<Board> board = boardRepository.findById(boardId);
         if (board.isEmpty())
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "boardId error");
 
-        User tmpUser = board.get().getUser();
+        // 삭제 처리
+        board.get().setIsUsed('N');
+        // 수정시간 업데이트
+        board.get().updateModifiedTime();
 
-//        // 잠시 tmpUser 삭제
-//        userRepository.delete(tmpUser);
-//
-//        // 해당 board 삭제하기
-//        boardRepository.delete(board.get());
-//
-//        // 다시 tmpUser 넣기
-//        userRepository.save(tmpUser);
+        boardRepository.save(board.get());
+
+
+        Map<String, Object> map = new HashMap<>();
+        map.put("boardId", board.get().getId());
+        return map;
+    }
+
+    public Map updateBoard(Long boardId, BoardSaveRequestDTO dto){
+        Optional<Board> board = boardRepository.findById(boardId);
+        if (board.isEmpty())
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "boardId error");
+
+        // Board update
+        Board tmpBoard = board.get();
+        tmpBoard.setTitle(dto.getTitle());
+        tmpBoard.setContent(dto.getContent());
+        tmpBoard.setPeopleNum(dto.getPeopleNum());
+        tmpBoard.setPossibleGender(dto.getPossibleGender());
+        tmpBoard.setKakaoChatAddress(dto.getKakaoChatAddress());
+        tmpBoard.setPlace(dto.getPlace());
+        // set date
+        LocalDate localDate;
+        StringTokenizer st = new StringTokenizer(dto.getLocalDate());
+        int year = Integer.parseInt(st.nextToken());
+        int month = Integer.parseInt(st.nextToken());
+        int day = Integer.parseInt(st.nextToken());
+        localDate = LocalDate.of(year, month, day);
+        // set time
+        LocalTime localTime;
+        st = new StringTokenizer(dto.getLocalTime());
+        int hour = Integer.parseInt(st.nextToken());
+        int minute = Integer.parseInt(st.nextToken());
+        localTime = LocalTime.of(hour, minute);
+
+        tmpBoard.setDate(localDate);
+        tmpBoard.setTime(localTime);
+
+        //수정시간 업데이트
+        tmpBoard.updateModifiedTime();
+
+        //Board save
+        boardRepository.save(tmpBoard);
+
+        // BoardRegion update
+        BoardRegion boardRegion = boardRegionRepository.findByBoardId(boardId);
+        boardRegion.updateRegion(dto.getRegion1(), dto.getRegion2(), dto.getRegion3());
+        boardRegionRepository.save(boardRegion);
+
+        Map<String, Object> map = new HashMap<>();
+        map.put("boardId", tmpBoard.getId());
+        return map;
+    }
+
+    public Map nowAttendingNumPlus(Long boardId){
+        Optional<Board> board = boardRepository.findById(boardId);
+        if (board.isEmpty())
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "boardId error");
+
+        board.get().updateNowAttendingNum();
+        boardRepository.save(board.get());
 
         Map<String, Object> map = new HashMap<>();
         map.put("boardId", board.get().getId());
         return map;
     }
 }
+/*
+"userId":"2",
+"region1":"상도동",
+"region2":"봉천동",
+"region3":"흑석동",
+"title":"한강 플로깅 모집",
+"content":"하이 저는 숭실대 컴공. 한강에서 플로깅 하실 분 구해여~",
+"peopleNum":5,
+"possibleGender":"Male",    //Male or Female or All
+"localDate":"YYYY MM DD", //공백으로 구분
+"localTime":"HH MM",
+"kakaoChatAddress":"welikfgjwdoifkdsmnkflmlsd",
+"place":"숭실대학교 운동장"
+}
+*/

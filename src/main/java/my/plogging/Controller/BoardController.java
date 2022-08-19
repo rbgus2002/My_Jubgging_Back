@@ -36,6 +36,16 @@ public class BoardController {
         return boardService.deleteBoard(boardId);
     }
 
+    @PutMapping("")
+    public Map boardUpdate(@RequestParam("boardId") Long boardId, @RequestBody BoardSaveRequestDTO dto){
+        return boardService.updateBoard(boardId, dto);
+    }
+
+    @GetMapping("/attend")
+    public Map boardAttendingNumPlus(@RequestParam Long boardId){
+        return boardService.nowAttendingNumPlus(boardId);
+    }
+
 
 }
 

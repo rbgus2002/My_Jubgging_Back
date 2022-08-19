@@ -1,9 +1,6 @@
 package my.plogging.domain;
 
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -11,8 +8,7 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 
 @Entity
-@Getter
-@Setter
+@Data
 @NoArgsConstructor
 public class Board {
     @Id @GeneratedValue
@@ -43,6 +39,7 @@ public class Board {
 
     private LocalDateTime createdTime;
     private LocalDateTime modifiedTime;
+    private char isUsed;
 
     @Builder
     public Board(User user, String title, String content, String place, int peopleNum, String possibleGender, LocalDate date, LocalTime time, String kakaoChatAddress){
@@ -58,5 +55,14 @@ public class Board {
         this.nowAttendingNum = 1;
         this.createdTime = LocalDateTime.now();
         this.modifiedTime = LocalDateTime.now();
+        this.isUsed = 'Y';
+    }
+
+    public void updateModifiedTime(){
+        this.modifiedTime = LocalDateTime.now();
+    }
+
+    public void updateNowAttendingNum(){
+        this.nowAttendingNum++;
     }
 }
