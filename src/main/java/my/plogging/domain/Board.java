@@ -43,6 +43,7 @@ public class Board {
 
     private LocalDateTime createdTime;
     private LocalDateTime modifiedTime;
+    private String isUsed;
 
     @Builder
     public Board(User user, String title, String content, String place, int peopleNum, String possibleGender, LocalDate date, LocalTime time, String kakaoChatAddress){
