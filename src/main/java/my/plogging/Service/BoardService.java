@@ -95,7 +95,7 @@ public class BoardService {
         List<Map> targetList = new ArrayList<>();
         for (Board board : list) {
             // 레코드 삭제 체크
-            if(board.getIsUsed() == 'N')
+            if(board.getIsUsed().equals("N"))
                 continue;
 
             BoardRegion boardRegion = boardRegionRepository.findByBoardId(board.getId());
@@ -150,7 +150,7 @@ public class BoardService {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "boardId error");
 
         // 삭제 처리
-        board.get().setIsUsed('N');
+        board.get().setIsUsed("N");
         // 수정시간 업데이트
         board.get().updateModifiedTime();
 

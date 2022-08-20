@@ -43,7 +43,6 @@ public class Board {
 
     private LocalDateTime createdTime;
     private LocalDateTime modifiedTime;
-    private char isUsed;
 
     private String isUsed;
 
@@ -61,7 +60,7 @@ public class Board {
         this.nowAttendingNum = 1;
         this.createdTime = LocalDateTime.now();
         this.modifiedTime = LocalDateTime.now();
-        this.isUsed = 'Y';
+        this.isUsed = "Y";
     }
 
     public void updateModifiedTime(){
