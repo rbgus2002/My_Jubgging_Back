@@ -19,10 +19,6 @@ public class Board {
     @JoinColumn(name = "user_id")
     private User user;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "attending_user_table_id")
-    private AttendingUser attendingUser;
-
     private String title;
 
     private String content;
@@ -43,8 +39,6 @@ public class Board {
 
     private LocalDateTime createdTime;
     private LocalDateTime modifiedTime;
-    private char isUsed;
-
     private String isUsed;
 
     @Builder
@@ -61,7 +55,7 @@ public class Board {
         this.nowAttendingNum = 1;
         this.createdTime = LocalDateTime.now();
         this.modifiedTime = LocalDateTime.now();
-        this.isUsed = 'Y';
+        this.isUsed = "Y";
     }
 
     public void updateModifiedTime(){
