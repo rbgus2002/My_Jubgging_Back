@@ -45,8 +45,6 @@ public class Board {
     private LocalDateTime modifiedTime;
     private char isUsed;
 
-    private String isUsed;
-
     @Builder
     public Board(User user, String title, String content, String place, int peopleNum, String possibleGender, LocalDate date, LocalTime time, String kakaoChatAddress){
         this.user = user;

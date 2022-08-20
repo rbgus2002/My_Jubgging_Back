@@ -40,6 +40,7 @@ public class User {
         this.address = address;
         this.addPlaceNum = 0;
         this.heart = 0;
+        this.profileURL = null;
     }
 
 }
