@@ -125,6 +125,10 @@ public class BoardService {
             System.out.println("boardId error");
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "boardId error");
         }
+        if(board.get().getIsUsed().equals("N")) {
+            System.out.println("deleted board");
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "deleted board");
+        }
 
         // User 객체 생성
         User user = board.get().getUser();
