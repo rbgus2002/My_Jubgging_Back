@@ -21,4 +21,6 @@ public class Comment {
     private String content;
 
     private LocalDateTime createdTime;
+
+    private String isUsed;
 }
