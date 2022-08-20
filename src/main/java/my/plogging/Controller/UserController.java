@@ -24,5 +24,4 @@ public class UserController {
     public UserFindAddressResponseDTO findUserAddress(@PathVariable Long userId){
         return userService.findUserAddress(userId);
     }
-
 }
