@@ -19,6 +19,7 @@ public class User {
     private String name;
     private String nickName;
 
+    private String email;
     private String profileURL;
 
     private int point;
@@ -36,6 +37,7 @@ public class User {
         this.id = id;
         this.name = name;
         this.nickName = nickName;
+        this.email = null;
         this.profileURL = null;
         this.point = 0;
         this.gender = gender;
