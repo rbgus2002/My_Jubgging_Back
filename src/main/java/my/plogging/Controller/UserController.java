@@ -2,7 +2,9 @@ package my.plogging.Controller;
 
 
 import lombok.RequiredArgsConstructor;
+import my.plogging.DTO.BoardSaveRequestDTO;
 import my.plogging.DTO.UserFindAddressResponseDTO;
+import my.plogging.DTO.UserSaveRequestDTO;
 import my.plogging.Service.UserService;
 import my.plogging.domain.User;
 import org.springframework.web.bind.annotation.*;
@@ -23,5 +25,10 @@ public class UserController {
     @GetMapping("/{userId}/address")
     public UserFindAddressResponseDTO findUserAddress(@PathVariable Long userId){
         return userService.findUserAddress(userId);
+    }
+
+    @PostMapping("/member")
+    public Map userSave(@RequestBody UserSaveRequestDTO dto){
+        return userService.saveUser(dto);
     }
 }

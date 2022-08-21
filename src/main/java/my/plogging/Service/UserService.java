@@ -1,13 +1,27 @@
 package my.plogging.Service;
 
+import lombok.Builder;
 import lombok.RequiredArgsConstructor;
+import my.plogging.DTO.BoardSaveRequestDTO;
 import my.plogging.DTO.UserFindAddressResponseDTO;
+import my.plogging.DTO.UserSaveRequestDTO;
 import my.plogging.Repository.UserRepository;
+import my.plogging.domain.Board;
+import my.plogging.domain.BoardRegion;
 import my.plogging.domain.User;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
+import javax.persistence.Column;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
+import java.util.StringTokenizer;
 
 @Service
 @RequiredArgsConstructor
@@ -34,7 +48,25 @@ public class UserService {
         return new UserFindAddressResponseDTO(address);
     }
 
+    public User UserSaveDTOtoEntity(UserSaveRequestDTO dto) {
+        return User.builder()
+                .id(dto.getUserId())
+                .name(dto.getName())
+                .nickName(dto.getNickName())
+                .gender(dto.getGender())
+                .address(dto.getAddress())
+                .build();
+    }
 
+    public Map saveUser(UserSaveRequestDTO dto) {
+        // 게시물 저장
+        User user = UserSaveDTOtoEntity(dto);
+        userRepository.save(user);
+
+        Map<String, Object> map = new HashMap<>();
+        map.put("userId", user.getId());
+        return map;
+    }
 
     //나중에 다 바꿔야해 User는
 }

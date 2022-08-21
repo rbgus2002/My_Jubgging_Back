@@ -12,7 +12,7 @@ import javax.persistence.*;
 @NoArgsConstructor
 public class User {
 
-    @Id @GeneratedValue
+    @Id
     @Column(name = "user_id")
     private Long id;
 
@@ -32,15 +32,16 @@ public class User {
     private int heart;
 
     @Builder
-    public User(String name, String nickName, String gender, String address){
+    public User(Long id, String name, String nickName, String gender, String address){
+        this.id = id;
         this.name = name;
         this.nickName = nickName;
+        this.profileURL = null;
         this.point = 0;
         this.gender = gender;
         this.address = address;
         this.addPlaceNum = 0;
         this.heart = 0;
-        this.profileURL = null;
     }
 
 }
