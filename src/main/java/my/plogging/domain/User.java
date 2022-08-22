@@ -33,12 +33,12 @@ public class User {
     private int heart;
 
     @Builder
-    public User(Long id, String name, String nickName, String gender, String address){
+    public User(Long id, String name, String nickName, String gender, String address, String email, String profileURL){
         this.id = id;
         this.name = name;
         this.nickName = nickName;
-        this.email = null;
-        this.profileURL = null;
+        this.email = email;
+        this.profileURL = profileURL;
         this.point = 0;
         this.gender = gender;
         this.address = address;

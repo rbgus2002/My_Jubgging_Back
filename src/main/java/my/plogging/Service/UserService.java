@@ -56,6 +56,8 @@ public class UserService {
                 .nickName(dto.getNickName())
                 .gender(dto.getGender())
                 .address(dto.getAddress())
+                .email(dto.getEmail())
+                .profileURL(dto.getProfileURL())
                 .build();
     }
 
