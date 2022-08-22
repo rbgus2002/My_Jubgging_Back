@@ -35,8 +35,8 @@ public class UserController {
     }
 
     @GetMapping("/member")
-    public Map userCheck(@RequestBody UserCheckRequestDTO dto) {
-        return userService.checkUser(dto);
+    public Map userCheck(@RequestParam Long userId) {
+        return userService.checkUser(userId);
     }
 
     @GetMapping("/signup")

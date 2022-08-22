@@ -69,13 +69,13 @@ public class UserService {
         return map;
     }
 
-    public Map checkUser(UserCheckRequestDTO dto) {
+    public Map checkUser(Long userId) {
         Map<String, Object> map = new HashMap<>();
 
         // 유저 존재 여부 조회
-        Optional<User> userId = userRepository.findById(dto.getUserId());
+        Optional<User> user = userRepository.findById(userId);
         // 존재하는 경우
-        if(!userId.isEmpty())
+        if(!user.isEmpty())
             map.put("user", "Y");
         // 존재하지 않는 경우
         else
