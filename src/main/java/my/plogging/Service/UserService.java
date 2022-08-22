@@ -3,6 +3,7 @@ package my.plogging.Service;
 import lombok.Builder;
 import lombok.RequiredArgsConstructor;
 import my.plogging.DTO.BoardSaveRequestDTO;
+import my.plogging.DTO.UserCheckRequestDTO;
 import my.plogging.DTO.UserFindAddressResponseDTO;
 import my.plogging.DTO.UserSaveRequestDTO;
 import my.plogging.Repository.UserRepository;
@@ -68,5 +69,19 @@ public class UserService {
         return map;
     }
 
+    public Map checkUser(UserCheckRequestDTO dto) {
+        Map<String, Object> map = new HashMap<>();
+
+        // 유저 존재 여부 조회
+        Optional<User> userId = userRepository.findById(dto.getUserId());
+        // 존재하는 경우
+        if(!userId.isEmpty())
+            map.put("user", "Y");
+        // 존재하지 않는 경우
+        else
+            map.put("user", "N");
+
+        return map;
+    }
     //나중에 다 바꿔야해 User는
 }

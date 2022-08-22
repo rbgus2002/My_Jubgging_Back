@@ -3,6 +3,7 @@ package my.plogging.Controller;
 
 import lombok.RequiredArgsConstructor;
 import my.plogging.DTO.BoardSaveRequestDTO;
+import my.plogging.DTO.UserCheckRequestDTO;
 import my.plogging.DTO.UserFindAddressResponseDTO;
 import my.plogging.DTO.UserSaveRequestDTO;
 import my.plogging.Service.UserService;
@@ -10,6 +11,7 @@ import my.plogging.domain.User;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
+import java.util.Optional;
 
 @RestController
 @RequiredArgsConstructor
@@ -30,5 +32,10 @@ public class UserController {
     @PostMapping("/member")
     public Map userSave(@RequestBody UserSaveRequestDTO dto){
         return userService.saveUser(dto);
+    }
+
+    @GetMapping("/member")
+    public Map userCheck(@RequestBody UserCheckRequestDTO dto) {
+        return userService.checkUser(dto);
     }
 }
