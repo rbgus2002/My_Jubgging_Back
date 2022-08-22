@@ -84,13 +84,13 @@ public class UserService {
         return map;
     }
 
-    public Map checkNickName(UserSaveRequestDTO dto) {
+    public Map checkNickName(String nickName) {
         Map<String, Object> map = new HashMap<>();
 
         // 유저 존재 여부 조회
-        Optional<User> nickName = userRepository.findBynickName(dto.getNickName());
+        Optional<User> user = userRepository.findBynickName(nickName);
         // 존재하는 경우
-        if(!nickName.isEmpty())
+        if(!user.isEmpty())
             map.put("nickName", "Y");
         // 존재하지 않는 경우
         else

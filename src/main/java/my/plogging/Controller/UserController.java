@@ -40,7 +40,7 @@ public class UserController {
     }
 
     @GetMapping("/signup")
-    public Map nickNameCheck(@RequestBody UserSaveRequestDTO dto) {
-        return userService.checkNickName(dto);
+    public Map nickNameCheck(@RequestParam String nickName) {
+        return userService.checkNickName(nickName);
     }
 }
