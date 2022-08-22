@@ -10,4 +10,8 @@ import java.util.function.Function;
 
 public interface BoardRegionRepository extends JpaRepository<BoardRegion, Long> {
     BoardRegion findByBoardId(Long BoardId);
+
+
+
+
 }

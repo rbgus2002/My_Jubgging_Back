@@ -42,8 +42,8 @@ public class BoardController {
     }
 
     @GetMapping("/attend")
-    public Map boardAttendingNumPlus(@RequestParam Long boardId){
-        return boardService.nowAttendingNumPlus(boardId);
+    public Map boardAttendingNumPlus(@RequestParam Long boardId, @RequestParam Long userId){
+        return boardService.nowAttendingNumPlus(boardId, userId);
     }
 
 

@@ -1,5 +1,6 @@
 package my.plogging.domain;
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -20,4 +21,17 @@ public class AttendingUser {
     @JoinColumn(name = "board_id")
     private Board board;
 
+    private String isUsed;
+
+
+    @Builder
+    public AttendingUser(User user, Board board, String isUsed) {
+        this.user = user;
+        this.board = board;
+        this.isUsed = isUsed;
+    }
+
+    public void changeIsUsedToN(){
+        this.isUsed = "N";
+    }
 }

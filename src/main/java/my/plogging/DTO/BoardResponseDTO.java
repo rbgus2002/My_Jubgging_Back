@@ -9,6 +9,7 @@ import my.plogging.domain.User;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Data
@@ -23,13 +24,14 @@ public class BoardResponseDTO {
     private String content;
     private String possibleGender;
     private String place;
+    private List attendingPeopleProfileURL;
 
     /*
      ************** address는 유저 동/면 조회 메소드 사용해서 서비스에서 따로 setting **************
      */
 
     @Builder
-    public BoardResponseDTO(Board board, User user) {
+    public BoardResponseDTO(Board board, User user, List list) {
         this.address = user.getAddress();
         this.nickName = user.getNickName();
         this.modifiedTime = board.getModifiedTime();
@@ -40,6 +42,7 @@ public class BoardResponseDTO {
         this.content = board.getContent();
         this.possibleGender = board.getPossibleGender();
         this.place = board.getPlace();
+        this.attendingPeopleProfileURL = list;
     }
 }
 
