@@ -83,5 +83,20 @@ public class UserService {
 
         return map;
     }
+
+    public Map checkNickName(UserSaveRequestDTO dto) {
+        Map<String, Object> map = new HashMap<>();
+
+        // 유저 존재 여부 조회
+        Optional<User> nickName = userRepository.findBynickName(dto.getNickName());
+        // 존재하는 경우
+        if(!nickName.isEmpty())
+            map.put("nickName", "Y");
+        // 존재하지 않는 경우
+        else
+            map.put("nickName", "N");
+
+        return map;
+    }
     //나중에 다 바꿔야해 User는
 }

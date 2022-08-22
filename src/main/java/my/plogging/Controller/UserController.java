@@ -38,4 +38,9 @@ public class UserController {
     public Map userCheck(@RequestBody UserCheckRequestDTO dto) {
         return userService.checkUser(dto);
     }
+
+    @GetMapping("/signup")
+    public Map nickNameCheck(@RequestBody UserSaveRequestDTO dto) {
+        return userService.checkNickName(dto);
+    }
 }
