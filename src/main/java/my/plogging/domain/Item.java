@@ -14,6 +14,8 @@ public class Item {
 
     private String itemURL;
     private String name;
+    private String information;
+
     private int price;
     private int stock;
 }

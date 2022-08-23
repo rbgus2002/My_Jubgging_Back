@@ -24,10 +24,10 @@ public class UserController {
         return userService.join(user);
     } //임시 -> DTO로 받기
 
-    @GetMapping("/{userId}/address")
-    public UserFindAddressResponseDTO findUserAddress(@PathVariable Long userId){
-        return userService.findUserAddress(userId);
-    }
+//    @GetMapping("/{userId}/address")
+//    public UserFindAddressResponseDTO findUserAddress(@PathVariable Long userId){
+//        return userService.findUserAddress(userId);
+//    }
 
     @PostMapping("/member")
     public Map userSave(@RequestBody UserSaveRequestDTO dto){

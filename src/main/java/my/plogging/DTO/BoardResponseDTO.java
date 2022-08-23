@@ -32,7 +32,7 @@ public class BoardResponseDTO {
 
     @Builder
     public BoardResponseDTO(Board board, User user, List list) {
-        this.address = user.getAddress();
+        //this.address = user.getAddress();
         this.nickName = user.getNickName();
         this.modifiedTime = board.getModifiedTime();
         this.peopleNum = board.getPeopleNum();

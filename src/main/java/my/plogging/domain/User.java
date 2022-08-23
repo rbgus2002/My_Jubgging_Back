@@ -12,8 +12,7 @@ import javax.persistence.*;
 @NoArgsConstructor
 public class User {
 
-    @Id
-    @Column(name = "user_id")
+    @Id @Column(name = "user_id")
     private Long id;
 
     private String name;
@@ -26,14 +25,17 @@ public class User {
 
     private String gender;
 
-    private String address;
+    private String roadAddress;
+    private String specificAddress;
+    private String dong;
+
 
     private int addPlaceNum;
 
     private int heart;
 
     @Builder
-    public User(Long id, String name, String nickName, String gender, String address, String email, String profileURL){
+    public User(Long id, String name, String nickName, String gender, String roadAddress, String specificAddress, String dong, String email, String profileURL){
         this.id = id;
         this.name = name;
         this.nickName = nickName;
@@ -41,7 +43,9 @@ public class User {
         this.profileURL = profileURL;
         this.point = 0;
         this.gender = gender;
-        this.address = address;
+        this.roadAddress = roadAddress;
+        this.specificAddress = specificAddress;
+        this.dong = dong;
         this.addPlaceNum = 0;
         this.heart = 0;
     }

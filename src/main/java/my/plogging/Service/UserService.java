@@ -39,6 +39,7 @@ public class UserService {
         return userRepository.findById(id).get();
     }
 
+    /* address때문에 오류나서 주석처리
     public UserFindAddressResponseDTO findUserAddress(Long userId){
         User user = userRepository.findById(userId).get();
 
@@ -48,14 +49,14 @@ public class UserService {
 
         return new UserFindAddressResponseDTO(address);
     }
-
+     */
     public User UserSaveDTOtoEntity(UserSaveRequestDTO dto) {
         return User.builder()
                 .id(dto.getUserId())
                 .name(dto.getName())
                 .nickName(dto.getNickName())
                 .gender(dto.getGender())
-                .address(dto.getAddress())
+                //.address(dto.getAddress())
                 .email(dto.getEmail())
                 .profileURL(dto.getProfileURL())
                 .build();
