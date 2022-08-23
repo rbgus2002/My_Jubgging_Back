@@ -3,6 +3,7 @@ package my.plogging.Controller;
 import lombok.RequiredArgsConstructor;
 import my.plogging.DTO.BoardSaveRequestDTO;
 import my.plogging.Service.BoardService;
+import my.plogging.Service.ExcelPOIHelper;
 import my.plogging.Service.UserService;
 import my.plogging.domain.User;
 import org.springframework.transaction.annotation.Transactional;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.persistence.EntityManager;
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -21,6 +23,7 @@ public class TestController {
     private final UserService userService;
     private final BoardService boardService;
     private final EntityManager em;
+    private final ExcelPOIHelper excelPOIHelpercel;
 
     @Transactional
     @GetMapping("/drop")
@@ -40,5 +43,10 @@ public class TestController {
         map.put("text", "나 숭실대 장재우. 대학원 가실?");
 
         return map;
+    }
+
+    @GetMapping("/trash")
+    public void saveTrash() throws IOException {
+        excelPOIHelpercel.readExcelAndSave();
     }
 }
