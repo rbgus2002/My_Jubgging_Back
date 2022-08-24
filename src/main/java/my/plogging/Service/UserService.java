@@ -2,10 +2,7 @@ package my.plogging.Service;
 
 import lombok.Builder;
 import lombok.RequiredArgsConstructor;
-import my.plogging.DTO.BoardSaveRequestDTO;
-import my.plogging.DTO.UserCheckRequestDTO;
-import my.plogging.DTO.UserFindAddressResponseDTO;
-import my.plogging.DTO.UserSaveRequestDTO;
+import my.plogging.DTO.*;
 import my.plogging.Repository.UserRepository;
 import my.plogging.domain.Board;
 import my.plogging.domain.BoardRegion;
@@ -50,6 +47,12 @@ public class UserService {
         return new UserFindAddressResponseDTO(address);
     }
      */
+    public UserProfileResponseDTO getUserProfile(Long userId){
+        User user = userRepository.findById(userId).get();
+
+        return new UserProfileResponseDTO(user);
+    }
+
     public User UserSaveDTOtoEntity(UserSaveRequestDTO dto) {
         return User.builder()
                 .id(dto.getUserId())
