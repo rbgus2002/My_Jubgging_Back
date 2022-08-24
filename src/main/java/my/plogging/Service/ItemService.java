@@ -1,7 +1,7 @@
 package my.plogging.Service;
 
 import lombok.RequiredArgsConstructor;
-import my.plogging.DTO.ItemListsResponseDTO;
+import my.plogging.DTO.ItemResponseDTO;
 import my.plogging.Repository.ItemRepository;
 import my.plogging.domain.Item;
 import org.springframework.stereotype.Service;
@@ -21,16 +21,21 @@ public class ItemService {
         List<Item> items = itemRepository.findAll();
         List<Map> targetList = new ArrayList<>();
         for (Item item : items) {
-            ItemListsResponseDTO dto = ItemListsResponseDTO.builder()
+            ItemResponseDTO dto = ItemResponseDTO.builder()
                     .item(item)
                     .build();
-            targetList.add(dto.ItemListsResponseDTOToMap());
+            targetList.add(dto.ItemResponseDTOToMap());
         }
 
         Map<String, Object> itemList = new HashMap<>();
         itemList.put("Results", targetList);
 
         return itemList;
+    }
+
+    public ItemResponseDTO getItem(Long itemId){
+        Item item = itemRepository.findById(itemId).get();
+        return new ItemResponseDTO(item);
     }
 
 }
