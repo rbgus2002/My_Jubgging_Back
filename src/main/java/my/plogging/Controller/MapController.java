@@ -1,11 +1,12 @@
 package my.plogging.Controller;
 
 import lombok.RequiredArgsConstructor;
+import my.plogging.DTO.HeartRequestDTO;
+import my.plogging.DTO.TrashRequestDTO;
+import my.plogging.DTO.TrashUserInfoResponseDTO;
+import my.plogging.DTO.UserSaveRequestDTO;
 import my.plogging.Service.MapService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
 
@@ -14,4 +15,28 @@ import java.util.Map;
 @RequestMapping("/map")
 public class MapController {
     private final MapService mapService;
+
+    @PostMapping("/heart")
+    public Map heartPlus(@RequestBody HeartRequestDTO dto){
+        return mapService.plusHeart(dto);
+    }
+
+    @PostMapping("/heart/cancel")
+    public Map heartCancel(@RequestBody HeartRequestDTO dto) {
+        return mapService.cancelHeart(dto);
+    }
+    @PostMapping("/trash")
+    public Map trashRegist(@RequestBody TrashRequestDTO dto){
+        return mapService.registTrash(dto);
+    }
+
+    @GetMapping("/trash/info")
+    public Map trashPrint() {
+        return mapService.printTrash();
+    }
+
+    @GetMapping("trash/user")
+    public TrashUserInfoResponseDTO trashWriter(@RequestParam Long customTrashAddressId) {
+        return mapService.writerTrash(customTrashAddressId);
+    }
 }

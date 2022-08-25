@@ -10,7 +10,7 @@ import org.springframework.web.server.ResponseStatusException;
 import javax.persistence.*;
 
 @Entity
-@Getter
+@Getter @Setter
 @NoArgsConstructor
 public class User {
 
