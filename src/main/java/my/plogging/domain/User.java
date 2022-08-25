@@ -30,6 +30,7 @@ public class User {
     private String dong;
 
     private int addPlaceNum;
+    private int heart;
 
     @Builder
     public User(Long id, String name, String nickName, String gender, String roadAddress, String specificAddress, String dong, String email, String profileURL){
@@ -44,6 +45,7 @@ public class User {
         this.specificAddress = specificAddress;
         this.dong = dong;
         this.addPlaceNum = 0;
+        this.heart = 0;
     }
 
 }
