@@ -4,12 +4,13 @@ import javax.persistence.*;
 
 @Entity
 public class CustomTrashAddress {
-    @Id @GeneratedValue
+    @Id @GeneratedValue @Column(name = "custom_trash_address_id")
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User user;
 
-    private String address;
+    private String latitude;
+    private String longitude;
 }
