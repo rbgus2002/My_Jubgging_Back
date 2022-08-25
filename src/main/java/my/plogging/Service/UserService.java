@@ -26,12 +26,6 @@ import java.util.StringTokenizer;
 public class UserService {
     private final UserRepository userRepository;
 
-    public Map join(User user){
-        Map<String, Object> map = new HashMap<>();
-        map.put("userId", userRepository.save(user).getId());
-        return map;
-    }
-
     public User findUser(Long id){
         return userRepository.findById(id).get();
     }

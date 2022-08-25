@@ -48,12 +48,3 @@ public class BoardController {
 
 
 }
-
-/*
-{"Results":
-    [
-        {"date":"2022-08-18","region1":"상도동","modifiedTime":"2022-08-17T15:28:02.24721","region2":"봉천동","region3":"흑석동","boardId":13,"nowAttendingNum":1,"title":"구함구함구함구함구함구함","peopleNum":4,"content":"플로깅 ㄱ"},
-        {"date":"2022-08-18","region1":"상도동","modifiedTime":"2022-08-17T16:07:57.613774","region2":"봉천동","region3":"흑석동","boardId":15,"nowAttendingNum":1,"title":"구함구함구함구함구함구함","peopleNum":4,"content":"플로깅 ㄱ"}
-    ]
-}
- */

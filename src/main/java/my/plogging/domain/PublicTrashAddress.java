@@ -13,17 +13,18 @@ import javax.persistence.Id;
 public class PublicTrashAddress {
     @Id @GeneratedValue(strategy = GenerationType.TABLE)
     private Long id;
-
     private String address;
     private String kind;
-    private String coordinate;
+    private String longitude;
+    private String latitude;
     private String spec;
 
     @Builder
-    public PublicTrashAddress(String address, String kind, String coordinate, String spec) {
+    public PublicTrashAddress(String address, String kind, String longitude, String latitude, String spec) {
         this.address = address;
         this.kind = kind;
-        this.coordinate = coordinate;
+        this.longitude = longitude;
+        this.latitude = latitude;
         this.spec = spec;
     }
 }

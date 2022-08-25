@@ -17,11 +17,6 @@ public class UserController {
     private final UserService userService;
     private final OrderService orderService;
 
-    @PostMapping("/join")
-    public Map userJoin(@RequestBody User user){
-        return userService.join(user);
-    } //임시 -> DTO로 받기
-
 //    @GetMapping("/{userId}/address")
 //    public UserFindAddressResponseDTO findUserAddress(@PathVariable Long userId){
 //        return userService.findUserAddress(userId);
