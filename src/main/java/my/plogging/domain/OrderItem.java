@@ -1,10 +1,13 @@
 package my.plogging.domain;
 
+import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
 @Entity
+@NoArgsConstructor
 @Getter
 public class OrderItem {
     @Id @GeneratedValue
@@ -20,4 +23,12 @@ public class OrderItem {
 
     private int orderPrice;
     private int count;
+
+    @Builder
+    public OrderItem(Item item, Order order, int orderPrice, int count){
+        this.item = item;
+        this.order = order;
+        this.orderPrice = orderPrice;
+        this.count = count;
+    }
 }

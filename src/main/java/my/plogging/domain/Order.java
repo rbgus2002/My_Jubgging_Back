@@ -1,13 +1,18 @@
 package my.plogging.domain;
 
+import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "orders")
+@NoArgsConstructor
 @Getter
 public class Order {
     @Id
@@ -18,7 +23,15 @@ public class Order {
     @JoinColumn(name = "user_id")
     private User user;
 
-    private String address;
+//    @OneToMany(mappedBy = "order")
+//    private List<OrderItem> orderItems = new ArrayList<>();
 
     private LocalDateTime orderDate;
+
+
+    @Builder
+    public Order(User user){
+        this.user = user;
+        this.orderDate = LocalDateTime.now();
+    }
 }
