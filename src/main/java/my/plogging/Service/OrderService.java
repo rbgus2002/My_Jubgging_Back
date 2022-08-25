@@ -2,6 +2,7 @@ package my.plogging.Service;
 
 import lombok.RequiredArgsConstructor;
 import my.plogging.DTO.OrderRequestDTO;
+import my.plogging.DTO.OrderResponseDTO;
 import my.plogging.Repository.ItemRepository;
 import my.plogging.Repository.OrderItemRepository;
 import my.plogging.Repository.OrderRepository;
@@ -12,7 +13,9 @@ import my.plogging.domain.OrderItem;
 import my.plogging.domain.User;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Service
@@ -22,6 +25,25 @@ public class OrderService {
     private final UserRepository userRepository;
     private final ItemRepository itemRepository;
     private final OrderItemRepository orderItemRepository;
+
+
+    public Map printOrders(Long userId){
+        List<Order> orders = orderRepository.findByUserId(userId);
+        List<Map> targetList = new ArrayList<>();
+        for (Order order : orders) {
+            OrderItem orderItem = orderItemRepository.findByOrderId(order.getId());
+            OrderResponseDTO dto = OrderResponseDTO.builder()
+                    .order(order)
+                    .orderItem(orderItem)
+                    .build();
+            targetList.add(dto.OrderResponseDTOToMap());
+        }
+
+        Map<String, Object> orderList = new HashMap<>();
+        orderList.put("Results", targetList);
+
+        return orderList;
+    }
 
     public Map order(OrderRequestDTO orderRequestDTO){
         User user = userRepository.findById(orderRequestDTO.getUserId()).get();

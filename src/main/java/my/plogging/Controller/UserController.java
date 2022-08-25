@@ -3,18 +3,19 @@ package my.plogging.Controller;
 
 import lombok.RequiredArgsConstructor;
 import my.plogging.DTO.*;
+import my.plogging.Service.OrderService;
 import my.plogging.Service.UserService;
 import my.plogging.domain.User;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
-import java.util.Optional;
 
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/user")
 public class UserController {
     private final UserService userService;
+    private final OrderService orderService;
 
     @PostMapping("/join")
     public Map userJoin(@RequestBody User user){
@@ -44,5 +45,10 @@ public class UserController {
     @GetMapping("/signup")
     public Map nickNameCheck(@RequestParam String nickName) {
         return userService.checkNickName(nickName);
+    }
+
+    @GetMapping("/{userId}/orders")
+    public Map printOrders(@PathVariable Long userId){
+        return orderService.printOrders(userId);
     }
 }
