@@ -4,6 +4,8 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.server.ResponseStatusException;
 
 import javax.persistence.*;
 
@@ -47,5 +49,15 @@ public class User {
         this.addPlaceNum = 0;
         this.heart = 0;
     }
+
+    public void spendPoint(Item item, int count, int spendPoint){
+        int restPoint = this.point - spendPoint;
+        if(restPoint<0){
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+        }
+        item.removeStock(count);
+        this.point = restPoint;
+    }
+
 
 }

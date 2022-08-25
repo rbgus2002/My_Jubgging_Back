@@ -49,9 +49,10 @@ public class OrderService {
         User user = userRepository.findById(orderRequestDTO.getUserId()).get();
         Item item = itemRepository.findById(orderRequestDTO.getItemId()).get();
         int count = orderRequestDTO.getCount();
-        item.removeStock(count);
+        int price = item.getPrice()*count;
+        user.spendPoint(item, count, price);
         Order order = new Order(user);
-        OrderItem orderItem = new OrderItem(item, order, item.getPrice()*count ,count);
+        OrderItem orderItem = new OrderItem(item, order, price ,count);
 
         orderRepository.save(order);
         orderItemRepository.save(orderItem);
