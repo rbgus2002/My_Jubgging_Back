@@ -1,13 +1,11 @@
 package my.plogging.Controller;
 
 import lombok.RequiredArgsConstructor;
-import my.plogging.DTO.HeartRequestDTO;
-import my.plogging.DTO.TrashRequestDTO;
-import my.plogging.DTO.TrashUserInfoResponseDTO;
-import my.plogging.DTO.UserSaveRequestDTO;
+import my.plogging.DTO.*;
 import my.plogging.Service.MapService;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -31,7 +29,7 @@ public class MapController {
     }
 
     @GetMapping("/trash/info")
-    public Map trashPrint() {
+    public List<TrashResponseDTO> trashPrint() {
         return mapService.printTrash();
     }
 

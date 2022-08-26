@@ -115,11 +115,9 @@ public class MapService {
         return map;
     }
 
-    public Map printTrash() {
+    public List<TrashResponseDTO> printTrash() {
         List<TrashResponseDTO> list = customTrashAddressRepository.findAllBy();
-        Map<String, Object> map = new HashMap<>();
-        map.put("Results", list);
-        return map;
+        return list;
     }
 
     public TrashUserInfoResponseDTO writerTrash(Long customTrashAddressId) {
