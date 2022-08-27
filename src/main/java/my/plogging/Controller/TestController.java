@@ -40,7 +40,7 @@ public class TestController {
         map.put("id", 1);
         map.put("userId", 1);
         map.put("title", "하이");
-        map.put("text", "나 숭실대 장재우. 대학원 가실?");
+        map.put("text", "나 서울시립대 이진수. 대학원 가실?");
 
         return map;
     }

@@ -161,9 +161,7 @@ public class BoardService {
                 .build();
 
         // address 수정 (면 혹은 동 출력)
-        String[] split = dto.getAddress().split(" ");
-        String address = split[2];
-        dto.setAddress(address);
+        dto.setAddress(user.getDong());
 
         // dto 리턴
         return dto;

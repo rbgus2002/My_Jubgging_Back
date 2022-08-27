@@ -17,11 +17,6 @@ public class UserController {
     private final UserService userService;
     private final OrderService orderService;
 
-//    @GetMapping("/{userId}/address")
-//    public UserFindAddressResponseDTO findUserAddress(@PathVariable Long userId){
-//        return userService.findUserAddress(userId);
-//    }
-
     @GetMapping("/{userId}/profiles")
     public UserProfileResponseDTO getProfile(@PathVariable Long userId){
         return userService.getUserProfile(userId);
