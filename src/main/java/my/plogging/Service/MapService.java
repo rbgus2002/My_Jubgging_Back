@@ -11,10 +11,7 @@ import my.plogging.domain.Heart;
 import my.plogging.domain.User;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 @RequiredArgsConstructor
@@ -116,7 +113,12 @@ public class MapService {
     }
 
     public List<TrashResponseDTO> printTrash() {
-        List<TrashResponseDTO> list = customTrashAddressRepository.findAllBy();
+        List<TrashResponseDTO> list = new ArrayList<>();
+        List<CustomTrashAddress> customList = customTrashAddressRepository.findAllBy();
+        for (CustomTrashAddress customTrashAddress : customList) {
+            User user = customTrashAddress.getUser();
+            list.add(new TrashResponseDTO(customTrashAddress, user));
+        }
         return list;
     }
 

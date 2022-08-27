@@ -11,5 +11,5 @@ import java.util.Optional;
 public interface CustomTrashAddressRepository extends JpaRepository<CustomTrashAddress, Long> {
     Optional<CustomTrashAddress> findByLatitudeAndLongitude(String latitude, String longitude);
 
-    List<TrashResponseDTO> findAllBy();
+    List<CustomTrashAddress> findAllBy();
 }
