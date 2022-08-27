@@ -10,6 +10,7 @@ public class TrashUserInfoResponseDTO {
     private String profileURL;
     private String nickName;
     private int heart;
+    private int addPlaceNum;
 
     @Builder
     public TrashUserInfoResponseDTO(User user) {
@@ -17,6 +18,7 @@ public class TrashUserInfoResponseDTO {
         this.profileURL = user.getProfileURL();
         this.nickName = user.getNickName();
         this.heart = user.getHeart();
+        this.addPlaceNum = user.getAddPlaceNum();
     }
 
 }
