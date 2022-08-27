@@ -4,11 +4,9 @@ import lombok.RequiredArgsConstructor;
 import my.plogging.DTO.*;
 import my.plogging.Repository.CustomTrashAddressRepository;
 import my.plogging.Repository.HeartRepository;
+import my.plogging.Repository.PublicTrashAddressRepository;
 import my.plogging.Repository.UserRepository;
-import my.plogging.domain.Board;
-import my.plogging.domain.CustomTrashAddress;
-import my.plogging.domain.Heart;
-import my.plogging.domain.User;
+import my.plogging.domain.*;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -19,6 +17,7 @@ public class MapService {
     private final CustomTrashAddressRepository customTrashAddressRepository;
     private final UserRepository userRepository;
     private final HeartRepository heartRepository;
+    private final PublicTrashAddressRepository publicTrashAddressRepository;
 
     public Map plusHeart(HeartRequestDTO dto) {
         Map<String, Object> map = new HashMap<>();
@@ -127,5 +126,11 @@ public class MapService {
         Optional<CustomTrashAddress> customTrashAddressOptional = customTrashAddressRepository.findById(customTrashAddressId);
         CustomTrashAddress customTrashAddress = customTrashAddressOptional.get();
         return new TrashUserInfoResponseDTO(customTrashAddress.getUser());
+    }
+
+    public Object publicTrashPrints() {
+        List list = publicTrashAddressRepository.findAll();
+        System.out.println(list);
+        return list.get(0);
     }
 }

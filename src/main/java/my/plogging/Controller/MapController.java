@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import my.plogging.DTO.*;
 import my.plogging.Service.MapService;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.util.List;
 import java.util.Map;
@@ -36,5 +37,10 @@ public class MapController {
     @GetMapping("trash/user")
     public TrashUserInfoResponseDTO trashWriter(@RequestParam Long customTrashAddressId) {
         return mapService.writerTrash(customTrashAddressId);
+    }
+
+    @GetMapping("/trash/public/info")
+    public Object publicTrashPrints(){
+        return mapService.publicTrashPrints();
     }
 }

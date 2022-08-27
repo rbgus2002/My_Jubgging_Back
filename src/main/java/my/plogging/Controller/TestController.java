@@ -44,9 +44,4 @@ public class TestController {
 
         return map;
     }
-
-    @GetMapping("/trash")
-    public void saveTrash() throws IOException {
-        excelPOIHelpercel.readExcelAndSave();
-    }
 }

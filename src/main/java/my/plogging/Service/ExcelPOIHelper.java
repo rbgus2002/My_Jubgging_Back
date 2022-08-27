@@ -96,6 +96,7 @@ public class ExcelPOIHelper {
             String surl = "https://maps.googleapis.com/maps/api/geocode/json?address=" + URLEncoder.encode(completeAddress, "UTF-8") + "&key=" + API_KEY;
             URL url = new URL(surl);
             InputStream is = url.openConnection().getInputStream();
+            System.out.println(url);
 
             BufferedReader streamReader = new BufferedReader(new InputStreamReader(is, "UTF-8"));
 
@@ -108,8 +109,13 @@ public class ExcelPOIHelper {
             JSONObject objData = (JSONObject) new JSONParser().parse(responseStrBuilder.toString());
             JSONArray jsonArray = (JSONArray) objData.get("results");
             JsonNode parent = new ObjectMapper().readTree(jsonArray.toJSONString());
-            map.put("longitude", parent.findValue("geometry").findValue("location").get("lng"));
-            map.put("latitude", parent.findValue("geometry").findValue("location").get("lat"));
+            if(parent.findValue("geometry") != null){
+                map.put("longitude", parent.findValue("geometry").findValue("location").get("lng"));
+                map.put("latitude", parent.findValue("geometry").findValue("location").get("lat"));
+            }else{
+                System.out.println("sdasdasdasnull sibal");
+            }
+
         } catch (MalformedURLException ex) {
             throw new RuntimeException(ex);
         } catch (UnsupportedEncodingException ex) {
