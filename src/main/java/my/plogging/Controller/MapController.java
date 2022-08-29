@@ -39,8 +39,8 @@ public class MapController {
         return mapService.writerTrash(customTrashAddressId);
     }
 
-    @GetMapping("/trash/public/info")
-    public Object publicTrashPrints(){
+    @GetMapping("/trash/publicInfo")
+    public Map publicTrashPrints(){
         return mapService.publicTrashPrints();
     }
 }
