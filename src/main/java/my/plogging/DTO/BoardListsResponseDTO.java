@@ -6,6 +6,7 @@ import my.plogging.domain.BoardRegion;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -19,7 +20,7 @@ public class BoardListsResponseDTO {
     private String region2;
     private String region3;
     private LocalDateTime modifiedTime;
-    private LocalDate date;
+    private LocalDateTime appointmentTime;
 
     @Builder
     public BoardListsResponseDTO(Board board, BoardRegion boardRegion) {
@@ -27,9 +28,9 @@ public class BoardListsResponseDTO {
         this.peopleNum = board.getPeopleNum();
         this.nowAttendingNum = board.getNowAttendingNum();
         this.title = board.getTitle();
-        this.content = board.getTitle();
+        this.content = board.getContent();
         this.modifiedTime = board.getModifiedTime();
-        this.date = board.getDate();
+        this.appointmentTime = LocalDateTime.of(board.getDate(), board.getTime());
         this.region1 = boardRegion.getRegion1();
         this.region2 = boardRegion.getRegion2();
         this.region3 = boardRegion.getRegion3();
@@ -46,7 +47,7 @@ public class BoardListsResponseDTO {
         map.put("region2", this.region2);
         map.put("region3", this.region3);
         map.put("modifiedTime", this.modifiedTime);
-        map.put("date", this.date);
+        map.put("appointmentTime", this.appointmentTime);
 
         return map;
     }

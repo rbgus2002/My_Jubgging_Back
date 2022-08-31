@@ -13,6 +13,7 @@ import my.plogging.domain.AttendingUser;
 import my.plogging.domain.Board;
 import my.plogging.domain.BoardRegion;
 import my.plogging.domain.User;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
@@ -102,7 +103,7 @@ public class BoardService {
 
     public Map getBoardLists(String targetRegion) {
         // scan Board table
-        List<Board> list = boardRepository.findAll();
+        List<Board> list = boardRepository.findAll(Sort.by(Sort.Direction.DESC, "modifiedTime"));
 
         // board_id 통해 BoardRegion에서 get item
         // get 해온 item에서 loop돌며 targetRegion이랑 같은 거 있나 찾기

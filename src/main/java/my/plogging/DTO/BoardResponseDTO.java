@@ -8,6 +8,7 @@ import my.plogging.domain.User;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -19,12 +20,12 @@ public class BoardResponseDTO {
     private LocalDateTime modifiedTime;
     private int peopleNum;
     private int nowAttendingNum;
-    private LocalDate date;
     private String title;
     private String content;
     private String possibleGender;
     private String place;
     private List attendingPeopleProfileURL;
+    private LocalDateTime appointmentTime;
 
     /*
      ************** address는 유저 동/면 조회 메소드 사용해서 서비스에서 따로 setting **************
@@ -37,7 +38,7 @@ public class BoardResponseDTO {
         this.modifiedTime = board.getModifiedTime();
         this.peopleNum = board.getPeopleNum();
         this.nowAttendingNum = board.getNowAttendingNum();
-        this.date = board.getDate();
+        this.appointmentTime = LocalDateTime.of(board.getDate(), board.getTime());
         this.title = board.getTitle();
         this.content = board.getContent();
         this.possibleGender = board.getPossibleGender();
