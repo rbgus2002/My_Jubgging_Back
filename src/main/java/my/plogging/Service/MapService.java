@@ -128,9 +128,10 @@ public class MapService {
         return new TrashUserInfoResponseDTO(customTrashAddress.getUser());
     }
 
-    public Object publicTrashPrints() {
+    public Map publicTrashPrints() {
+        Map map = new HashMap();
         List list = publicTrashAddressRepository.findAll();
-        System.out.println(list);
-        return list.get(0);
+        map.put("results", list);
+        return map;
     }
 }
