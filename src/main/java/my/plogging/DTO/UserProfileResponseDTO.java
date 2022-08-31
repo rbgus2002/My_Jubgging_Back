@@ -23,7 +23,7 @@ public class UserProfileResponseDTO {
     private String email;
     private String roadAddress;
     private String specificAddress;
-    private String nickname;
+    private String nickName;
     private int point;
 
     @Builder
@@ -34,7 +34,7 @@ public class UserProfileResponseDTO {
         this.email = user.getEmail();
         this.roadAddress = user.getRoadAddress();
         this.specificAddress = user.getSpecificAddress();
-        this.nickname = user.getNickName();
+        this.nickName = user.getNickName();
         this.point = user.getPoint();
     }
 }
