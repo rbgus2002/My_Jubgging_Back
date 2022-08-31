@@ -4,7 +4,6 @@ import lombok.Getter;
 import lombok.Setter;
 import my.plogging.domain.CustomTrashAddress;
 import my.plogging.domain.User;
-import org.springframework.context.annotation.Lazy;
 
 @Getter @Setter
 public class TrashResponseDTO {
@@ -18,7 +17,7 @@ public class TrashResponseDTO {
     private int heart;
     private int addPlaceNum;
 
-    public TrashResponseDTO(@Lazy CustomTrashAddress customTrashAddress, @Lazy User user) {
+    public TrashResponseDTO(CustomTrashAddress customTrashAddress, User user) {
         this.id = customTrashAddress.getId();
         this.userId = user.getId();
         this.latitude = customTrashAddress.getLatitude();

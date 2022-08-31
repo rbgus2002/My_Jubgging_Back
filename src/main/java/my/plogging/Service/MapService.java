@@ -7,7 +7,9 @@ import my.plogging.Repository.HeartRepository;
 import my.plogging.Repository.PublicTrashAddressRepository;
 import my.plogging.Repository.UserRepository;
 import my.plogging.domain.*;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.*;
 
@@ -77,6 +79,26 @@ public class MapService {
                 userRepository.save(writer);
                 map.put("heart", writer.getHeart());
             }
+        }
+        return map;
+    }
+
+    public Map checkHeart(HeartRequestDTO dto) {
+        Map<String, Object> map = new HashMap<>();
+        Optional<CustomTrashAddress> customTrashAddressOptional = customTrashAddressRepository.findById(dto.getCustomTrashAddressId());
+        // 잘못된 정보라면
+        if(customTrashAddressOptional.isEmpty())
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "No Data");
+        // 올바른 정보라면
+        else {
+            CustomTrashAddress customTrashAddress = customTrashAddressOptional.get();
+            Optional<Heart> heartOptional = heartRepository.findByCustomTrashAddressIdAndUserId(dto.getCustomTrashAddressId(), dto.getUserId());
+            // 좋아요를 누르지 않은 경우
+            if (heartOptional.isEmpty())
+                map.put("heart", "N");
+            // 좋아요를 누른 경우
+            else
+                map.put("heart", "Y");
         }
         return map;
     }

@@ -24,6 +24,10 @@ public class MapController {
     public Map heartCancel(@RequestBody HeartRequestDTO dto) {
         return mapService.cancelHeart(dto);
     }
+
+    @PostMapping("/heart/check")
+    public Map heartCheck(@RequestBody HeartRequestDTO dto) { return mapService.checkHeart(dto); }
+
     @PostMapping("/trash")
     public Map trashRegist(@RequestBody TrashRequestDTO dto){
         return mapService.registTrash(dto);
