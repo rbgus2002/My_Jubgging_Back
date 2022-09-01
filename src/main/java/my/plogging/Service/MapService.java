@@ -26,7 +26,7 @@ public class MapService {
         Optional<CustomTrashAddress> customTrashAddressOptional = customTrashAddressRepository.findById(dto.getCustomTrashAddressId());
         // 잘못된 정보라면
         if(customTrashAddressOptional.isEmpty())
-            map.put("heart", -1);
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "No Data");
         // 올바른 정보라면
         else {
             CustomTrashAddress customTrashAddress = customTrashAddressOptional.get();
@@ -49,7 +49,7 @@ public class MapService {
             }
             // 좋아요 중복 체크
             else
-                map.put("heart", -2);
+                throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Overlap");
         }
         return map;
     }
@@ -59,14 +59,14 @@ public class MapService {
         Optional<CustomTrashAddress> customTrashAddressOptional = customTrashAddressRepository.findById(dto.getCustomTrashAddressId());
         // 잘못된 정보라면
         if(customTrashAddressOptional.isEmpty())
-            map.put("heart", -1);
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "No Data");
             // 올바른 정보라면
         else {
             CustomTrashAddress customTrashAddress = customTrashAddressOptional.get();
             Optional<Heart> heartOptional = heartRepository.findByCustomTrashAddressIdAndUserId(dto.getCustomTrashAddressId(), dto.getUserId());
             // 좋아요를 누르지 않은 경우
             if (heartOptional.isEmpty())
-                map.put("heart", -2);
+                throw new ResponseStatusException(HttpStatus.NOT_FOUND, "No Data");
             // 좋아요 취소
             else {
                 Optional<User> userOptional = userRepository.findById(dto.getUserId());
@@ -108,7 +108,7 @@ public class MapService {
         Optional<User> userOptional = userRepository.findById(dto.getUserId());
         // 잘못된 유저 체크
         if(userOptional.isEmpty())
-            map.put("userId", -1);
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "No Data");
         else {
             User user = userOptional.get();
             Optional<CustomTrashAddress> customTrashAddressOptional = customTrashAddressRepository.findByLatitudeAndLongitude(dto.getLatitude(), dto.getLongitude());
@@ -128,7 +128,7 @@ public class MapService {
             }
             // 장소 중복 체크
             else
-                map.put("userId", -2);
+                throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Exist");
         }
         return map;
     }
