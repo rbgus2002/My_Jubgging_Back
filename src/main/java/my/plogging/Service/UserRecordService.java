@@ -2,6 +2,7 @@ package my.plogging.Service;
 
 import lombok.RequiredArgsConstructor;
 import my.plogging.DTO.BoardSaveRequestDTO;
+import my.plogging.DTO.UserRankResponseDTO;
 import my.plogging.DTO.UserRecordResponseDTO;
 import my.plogging.DTO.UserRecordSaveRequestDTO;
 import my.plogging.Repository.UserRecordRepository;
@@ -16,10 +17,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Optional;
-import java.util.StringTokenizer;
+import java.util.*;
 
 @Service
 @RequiredArgsConstructor
@@ -134,5 +132,77 @@ public class UserRecordService {
         return userRecordResponseDTO;
     }
 
-//    public Map<UserRecord, >
+    /*
+    랭킹 가져오기 ( 1 ~ 50)
+     */
+    //List<Board> list = boardRepository.findAll(Sort.by(Sort.Direction.DESC, "modifiedTime"));
+    public Map getUserRank() {
+        List<UserRankResponseDTO> list = new ArrayList<>();
+        Map<User, Integer> recordMap = new HashMap<>();
+
+        // 모든 유저 가져오기
+        List<User> userList = userRepository.findAll();
+
+        // 모든 유저 loop
+        for (User user : userList) {
+            // [UserRecord Table] 유저 아이디로 query
+            List<UserRecord> userRecordList = userRecordRepository.findUserRecordByUser(user);
+
+            // 모든 기록에 대해서 walkingNum 총합 구하기
+            int allWalkingNum = 0;
+            for (UserRecord userRecord : userRecordList) {
+                allWalkingNum += userRecord.getWalkingNum();
+            }
+
+            // Map에 기록 저장
+            recordMap.put(user, allWalkingNum);
+        }
+
+        // Map에서 value를 기준으로 내림차순 Sorting
+        Map<User, Integer> sortedRecordMap = sortByValue(recordMap);
+
+        // 1 ~ 50위 까지만 list에 append
+        int i = 0;
+        for (User user : sortedRecordMap.keySet()) {
+            // 50위까지만 return 해주기 위한 조건문
+            if (i++ == 50)
+                break;
+
+            // dto 생성
+            UserRankResponseDTO dto = UserRankResponseDTO.builder()
+                    .rank(i)
+                    .user(user)
+                    .walkingNum(sortedRecordMap.get(user))
+                    .build();
+
+            // list에 dto add
+            list.add(dto);
+        }
+
+        // list to map
+        Map finalResult = new HashMap();
+        finalResult.put("Results", list);
+
+        return finalResult;
+    }
+
+    // Map을 Value 기준으로 내림차순 정렬해주는 메소드
+    public HashMap<User, Integer> sortByValue(Map<User, Integer> hm) {
+        List<Map.Entry<User, Integer>> list =
+                new LinkedList<Map.Entry<User, Integer>>(hm.entrySet());
+
+        Collections.sort(list, new Comparator<Map.Entry<User, Integer>>() {
+            @Override
+            public int compare(Map.Entry<User, Integer> o1, Map.Entry<User, Integer> o2) {
+                return (o2.getValue()).compareTo(o1.getValue());
+            }
+        });
+
+        HashMap<User, Integer> answer = new LinkedHashMap<User, Integer>();
+        for (Map.Entry<User, Integer> aa : list) {
+            answer.put(aa.getKey(), aa.getValue());
+        }
+
+        return answer;
+    }
 }

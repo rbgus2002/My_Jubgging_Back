@@ -24,4 +24,9 @@ public class UserRecordController {
     public UserRecordResponseDTO userRecordPrint(@RequestParam Long userId, @RequestParam String date){
         return userRecordService.getUserRecord(userId, date);
     }
+
+    @GetMapping("/rank")
+    public Map userRankPrint(){
+        return userRecordService.getUserRank();
+    }
 }
