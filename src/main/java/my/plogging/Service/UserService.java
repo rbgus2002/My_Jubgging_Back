@@ -3,7 +3,10 @@ package my.plogging.Service;
 import lombok.Builder;
 import lombok.RequiredArgsConstructor;
 import my.plogging.DTO.*;
+import my.plogging.Repository.AttendingUserRepository;
+import my.plogging.Repository.BoardRepository;
 import my.plogging.Repository.UserRepository;
+import my.plogging.domain.AttendingUser;
 import my.plogging.domain.Board;
 import my.plogging.domain.BoardRegion;
 import my.plogging.domain.User;
@@ -15,16 +18,16 @@ import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Optional;
-import java.util.StringTokenizer;
+import java.util.*;
 
 @Service
 @RequiredArgsConstructor
 public class UserService {
     private final UserRepository userRepository;
+    private final BoardRepository boardRepository;
+    private final AttendingUserRepository attendingUserRepository;
 
     public User findUser(Long id){
         return userRepository.findById(id).get();
@@ -100,5 +103,42 @@ public class UserService {
 
         return map;
     }
-    //나중에 다 바꿔야해 User는
+
+    public Map getAppointments(Long userId){
+        List<UserAppointmentResponseDTO> list = new ArrayList();
+
+        // userId 에러처리
+        Optional<User> user = userRepository.findById(userId);
+        if(user.isEmpty())
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "userId error");
+
+        // AttendingUser Table에서 query
+        List<AttendingUser> attendingUserList = attendingUserRepository.findAttendingUserByUser(user.get());
+
+        // boardId로 현재 날짜 이상이면 Response 객체를 리스트에 추가
+        for(AttendingUser attendingUser : attendingUserList){
+            if(LocalDate.now().isBefore(attendingUser.getBoard().getDate()) || LocalDate.now().isEqual(attendingUser.getBoard().getDate())){
+                //set LocalDateTime
+                LocalDateTime localDateTime;
+                LocalDate tmpDate = attendingUser.getBoard().getDate();
+                LocalTime tmpTime = attendingUser.getBoard().getTime();
+                localDateTime = LocalDateTime.of(tmpDate,tmpTime);
+
+                //Response 객체 생성
+                UserAppointmentResponseDTO dto = UserAppointmentResponseDTO.builder()
+                        .boardId(attendingUser.getBoard().getId())
+                        .localDateTime(localDateTime)
+                        .place(attendingUser.getBoard().getPlace())
+                        .build();
+
+                //list에 append
+                list.add(dto);
+            }
+        }
+
+        Map map = new HashMap();
+        map.put("Results", list);
+
+        return map;
+    }
 }

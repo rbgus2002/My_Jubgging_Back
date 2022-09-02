@@ -27,7 +27,7 @@ public class UserRecordService {
     private final UserRecordRepository userRecordRepository;
     private final UserRepository userRepository;
 
-    public UserRecord UserRecordSaveDTOtoEntity(UserRecordSaveRequestDTO dto){
+    public UserRecord UserRecordSaveDTOtoEntity(UserRecordSaveRequestDTO dto) {
         // set user
         Optional<User> user = userRepository.findById(dto.getUserId());
         if (user.isEmpty()) {
@@ -49,14 +49,14 @@ public class UserRecordService {
                 .build();
     }
 
-    public Map saveUserRecord(UserRecordSaveRequestDTO dto){
+    public Map saveUserRecord(UserRecordSaveRequestDTO dto) {
         // find original data
         UserRecordID userRecordID = new UserRecordID(dto.getUserId(), LocalDate.now());
         Optional<UserRecord> userRecord = userRecordRepository.findById(userRecordID);
 
         // 기존 데이터 존재 시 더해주기
         UserRecord now;
-        if(userRecord.isPresent()){
+        if (userRecord.isPresent()) {
             // set now UserRecord
             now = userRecord.get();
 
@@ -72,13 +72,13 @@ public class UserRecordService {
 
             // save
             userRecordRepository.save(UserRecord.builder()
-                            .walkingNum(now.getWalkingNum() + dto.getWalkingNum())
-                            .date(dto.getDate())
-                            .user(now.getUser())
-                            .walkingTime(nowTime)
+                    .walkingNum(now.getWalkingNum() + dto.getWalkingNum())
+                    .date(dto.getDate())
+                    .user(now.getUser())
+                    .walkingTime(nowTime)
                     .build());
 
-        }else{
+        } else {
             now = UserRecordSaveDTOtoEntity(dto);
             userRecordRepository.save(now);
         }
@@ -88,7 +88,7 @@ public class UserRecordService {
         return map;
     }
 
-    public UserRecordResponseDTO getUserRecord(Long userId, String date){
+    public UserRecordResponseDTO getUserRecord(Long userId, String date) {
         // set localDate
         StringTokenizer st = new StringTokenizer(date, "-");
         LocalDate localDate = LocalDate.of(Integer.parseInt(st.nextToken()), Integer.parseInt(st.nextToken()), Integer.parseInt(st.nextToken()));
@@ -97,32 +97,40 @@ public class UserRecordService {
         UserRecordID userRecordID = new UserRecordID(userId, localDate);
 
         // set UserRecord
+        UserRecordResponseDTO userRecordResponseDTO;
         Optional<UserRecord> userRecord = userRecordRepository.findById(userRecordID);
         if (userRecord.isEmpty()) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "userRecordID error");
-        }
-
+            // set UserRecordResponseDTO
+            userRecordResponseDTO = UserRecordResponseDTO.builder()
+                    .calorie(0)
+                    .walkingNum(0)
+                    .walkingTime(LocalTime.of(0, 0))
+                    .kilometer(0)
+                    .build();
+        } else {
         /*
         set calorie
         10,000보에 400 칼로리
         == 1보에 0.04 칼로리
          */
-        double calorie = userRecord.get().getWalkingNum() * 0.04;
+            double calorie = userRecord.get().getWalkingNum() * 0.04;
 
         /*
         set kilometer
         14보에 0.01km
          */
-        double kilometer = userRecord.get().getWalkingNum() * 0.00071429;
+            double kilometer = userRecord.get().getWalkingNum() * 0.00071429;
 
-        // set UserRecordResponseDTO
-        UserRecordResponseDTO userRecordResponseDTO = UserRecordResponseDTO.builder()
-                .calorie((int)calorie)
-                .walkingNum(userRecord.get().getWalkingNum())
-                .walkingTime(userRecord.get().getWalkingTime())
-                .kilometer(Double.parseDouble(String.format("%.3f", kilometer)))
-                .build();
+            // set UserRecordResponseDTO
+            userRecordResponseDTO = UserRecordResponseDTO.builder()
+                    .calorie((int) calorie)
+                    .walkingNum(userRecord.get().getWalkingNum())
+                    .walkingTime(userRecord.get().getWalkingTime())
+                    .kilometer(Double.parseDouble(String.format("%.3f", kilometer)))
+                    .build();
 
+
+        }
         return userRecordResponseDTO;
     }
 

@@ -26,6 +26,7 @@ public class BoardResponseDTO {
     private String place;
     private List attendingPeopleProfileURL;
     private LocalDateTime appointmentTime;
+    private Long userId;
 
     /*
      ************** address는 유저 동/면 조회 메소드 사용해서 서비스에서 따로 setting **************
@@ -44,6 +45,7 @@ public class BoardResponseDTO {
         this.possibleGender = board.getPossibleGender();
         this.place = board.getPlace();
         this.attendingPeopleProfileURL = list;
+        this.userId = user.getId();
     }
 }
 

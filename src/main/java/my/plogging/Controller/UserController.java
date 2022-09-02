@@ -41,4 +41,11 @@ public class UserController {
     public Map printOrders(@PathVariable Long userId){
         return orderService.printOrders(userId);
     }
+
+    @GetMapping("/appointment")
+    public Map printAppointments(@RequestParam Long userId){
+        return userService.getAppointments(userId);
+    }
+
+
 }
