@@ -24,7 +24,7 @@ public class Item {
     public void removeStock(int quantity){
         int restStock = this.stock - quantity;
         if(restStock < 0){
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Not Enough Stocks");
         }
         this.stock = restStock;
     }

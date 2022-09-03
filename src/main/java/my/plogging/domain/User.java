@@ -53,7 +53,7 @@ public class User {
     public void spendPoint(Item item, int count, int spendPoint){
         int restPoint = this.point - spendPoint;
         if(restPoint<0){
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Not enough Points");
         }
         item.removeStock(count);
         this.point = restPoint;
