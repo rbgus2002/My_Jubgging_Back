@@ -264,19 +264,34 @@ public class BoardService {
         map.put("boardId", board.get().getId());
         return map;
     }
+
+    public Map checkAttendingUser(Long userId, Long boardId) {
+        Optional<User> user = userRepository.findById(userId);
+        Optional<Board> board = boardRepository.findById(boardId);
+        Map map = new HashMap();
+
+        // userId 예외처리
+        if (user.isEmpty())
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "userId error");
+
+        // boardId 예외처리
+        if (board.isEmpty())
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "boardId error");
+
+        // boardId로 attendingUser query
+        List<AttendingUser> attendingUserList = attendingUserRepository.findAttendingUserByBoardIdAndIsUsed(boardId, "Y");
+
+        // 이미 존재하는 사용자인 지 체크
+        boolean exist = false;
+        for (AttendingUser tmp : attendingUserList) {
+            if (userId == tmp.getUser().getId()) {
+                exist = true;
+                break;
+            }
+        }
+
+        map.put("attending", exist ? "Y" : "N");
+
+        return map;
+    }
 }
-/*
-"userId":"2",
-"region1":"상도동",
-"region2":"봉천동",
-"region3":"흑석동",
-"title":"한강 플로깅 모집",
-"content":"하이 저는 숭실대 컴공. 한강에서 플로깅 하실 분 구해여~",
-"peopleNum":5,
-"possibleGender":"Male",    //Male or Female or All
-"localDate":"YYYY MM DD", //공백으로 구분
-"localTime":"HH MM",
-"kakaoChatAddress":"welikfgjwdoifkdsmnkflmlsd",
-"place":"숭실대학교 운동장"
-}
-*/

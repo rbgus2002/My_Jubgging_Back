@@ -11,6 +11,7 @@ public class UserRankResponseDTO {
     private String userNickName;
     private int walkingNum;
     private String profileURL;
+    private Long userId;
 
     @Builder
     public UserRankResponseDTO(Integer rank, User user, int walkingNum) {
@@ -19,5 +20,6 @@ public class UserRankResponseDTO {
         this.userNickName = user.getNickName();
         this.profileURL = user.getProfileURL();
         this.walkingNum = walkingNum;
+        this.userId = user.getId();
     }
 }

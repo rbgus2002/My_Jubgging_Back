@@ -118,17 +118,24 @@ public class UserService {
         // boardId로 현재 날짜 이상이면 Response 객체를 리스트에 추가
         for(AttendingUser attendingUser : attendingUserList){
             if(LocalDate.now().isBefore(attendingUser.getBoard().getDate()) || LocalDate.now().isEqual(attendingUser.getBoard().getDate())){
-                //set LocalDateTime
+                // set LocalDateTime
                 LocalDateTime localDateTime;
                 LocalDate tmpDate = attendingUser.getBoard().getDate();
                 LocalTime tmpTime = attendingUser.getBoard().getTime();
                 localDateTime = LocalDateTime.of(tmpDate,tmpTime);
+
+                // 오늘 줍깅인 지 체크
+                String today = "N";
+                if(tmpDate.isEqual(LocalDate.now()))
+                    today = "Y";
+
 
                 //Response 객체 생성
                 UserAppointmentResponseDTO dto = UserAppointmentResponseDTO.builder()
                         .boardId(attendingUser.getBoard().getId())
                         .localDateTime(localDateTime)
                         .place(attendingUser.getBoard().getPlace())
+                        .today(today)
                         .build();
 
                 //list에 append

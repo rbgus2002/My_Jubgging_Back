@@ -46,5 +46,10 @@ public class BoardController {
         return boardService.nowAttendingNumPlus(boardId, userId);
     }
 
+    @GetMapping("/check/attending")
+    public Map boardAttendingCheck(@RequestParam Long userId, @RequestParam Long boardId){
+        return boardService.checkAttendingUser(userId, boardId);
+    }
+
 
 }

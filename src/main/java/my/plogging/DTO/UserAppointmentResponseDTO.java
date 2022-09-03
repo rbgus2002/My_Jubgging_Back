@@ -12,11 +12,14 @@ public class UserAppointmentResponseDTO {
     private LocalDateTime localDateTime;
     private String place;
 
+    private String today;
+
 
     @Builder
-    public UserAppointmentResponseDTO(Long boardId, LocalDateTime localDateTime, String place) {
+    public UserAppointmentResponseDTO(Long boardId, LocalDateTime localDateTime, String place, String today) {
         this.boardId = boardId;
         this.localDateTime = localDateTime;
         this.place = place;
+        this.today = today;
     }
 }
