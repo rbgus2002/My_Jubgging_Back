@@ -10,6 +10,7 @@ import java.util.Map;
 
 @Getter @Setter
 public class ItemResponseDTO {
+    private Long itemId;
     private String itemURL;
     private String name;
     private String information;
@@ -18,6 +19,7 @@ public class ItemResponseDTO {
 
     @Builder
     public ItemResponseDTO(Item item){
+        this.itemId = item.getId();
         this.itemURL = item.getItemURL();
         this.name = item.getName();
         this.information = item.getInformation();
@@ -27,6 +29,7 @@ public class ItemResponseDTO {
 
     public Map<String, Object> ItemResponseDTOToMap(){
         Map<String, Object> map = new HashMap<>();
+        map.put("itemId", this.itemId);
         map.put("itemURL", this.itemURL);
         map.put("name", this.name);
         map.put("information", this.information);
