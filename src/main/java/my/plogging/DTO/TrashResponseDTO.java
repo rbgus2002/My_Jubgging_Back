@@ -12,10 +12,6 @@ public class TrashResponseDTO {
     private String latitude;
     private String longitude;
     private String kind;
-    private String profileURL;
-    private String nickName;
-    private int heart;
-    private int addPlaceNum;
 
     public TrashResponseDTO(CustomTrashAddress customTrashAddress, User user) {
         this.id = customTrashAddress.getId();
@@ -23,9 +19,5 @@ public class TrashResponseDTO {
         this.latitude = customTrashAddress.getLatitude();
         this.longitude = customTrashAddress.getLongitude();
         this.kind = customTrashAddress.getKind();
-        this.profileURL = user.getProfileURL();
-        this.nickName = user.getNickName();
-        this.heart = user.getHeart();
-        this.addPlaceNum = user.getAddPlaceNum();
     }
 }
