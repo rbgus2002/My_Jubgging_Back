@@ -143,6 +143,13 @@ public class UserService {
             }
         }
 
+        Collections.sort(list, new Comparator<UserAppointmentResponseDTO>() {
+            @Override
+            public int compare(UserAppointmentResponseDTO o1, UserAppointmentResponseDTO o2) {
+                return o1.getLocalDateTime().compareTo(o2.getLocalDateTime());
+            }
+        });
+
         Map map = new HashMap();
         map.put("Results", list);
 
