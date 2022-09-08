@@ -155,4 +155,24 @@ public class UserService {
 
         return map;
     }
+
+    public Map addUserPoint(UserPointRequestDTO dto){
+        // set user
+        Optional<User> user = userRepository.findById(dto.getUserId());
+        if(user.isEmpty())
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "userId error");
+
+        // calculate point
+        int point = dto.getWalkingNum() / 100;
+
+
+        // user에게 지급
+        user.get().setPoint(user.get().getPoint() + point);
+        userRepository.save(user.get());
+
+        Map map = new HashMap();
+        map.put("nowPoint", user.get().getPoint());
+
+        return map;
+    }
 }

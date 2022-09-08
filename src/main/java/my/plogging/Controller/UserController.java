@@ -47,5 +47,10 @@ public class UserController {
         return userService.getAppointments(userId);
     }
 
+    @PostMapping("/point")
+    public Map addPoint(@RequestBody UserPointRequestDTO dto){
+        return userService.addUserPoint(dto);
+    }
+
 
 }
