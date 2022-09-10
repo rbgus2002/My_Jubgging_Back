@@ -172,6 +172,7 @@ public class UserService {
 
         Map map = new HashMap();
         map.put("nowPoint", user.get().getPoint());
+        map.put("add", point);
 
         return map;
     }
