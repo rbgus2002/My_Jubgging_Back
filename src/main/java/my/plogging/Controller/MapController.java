@@ -44,7 +44,7 @@ public class MapController {
     }
 
     @GetMapping("/trash/publicInfo")
-    public Map publicTrashPrints(){
-        return mapService.publicTrashPrints();
+    public Map publicTrashPrints(@RequestParam String latitude, @RequestParam String longitude, @RequestParam String findMeter){
+        return mapService.publicTrashPrints(latitude, longitude, findMeter);
     }
 }

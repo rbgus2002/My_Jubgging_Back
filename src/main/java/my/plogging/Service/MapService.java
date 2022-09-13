@@ -150,10 +150,46 @@ public class MapService {
         return new TrashUserInfoResponseDTO(customTrashAddress.getUser());
     }
 
-    public Map publicTrashPrints() {
+    public Map publicTrashPrints(String lat, String lon, String findMeter) {
+        List<PublicTrashAddress> answerList = new ArrayList<>();
+
+        // findAll
+        List<PublicTrashAddress> list = publicTrashAddressRepository.findAll();
+
+        // parameter의 좌표와 레코드의 좌표간 meter 거리 구하기
+        for(PublicTrashAddress tmp : list){
+            double distanceMeter = distanceToMeter(Double.parseDouble(lat),Double.parseDouble(lon), Double.parseDouble(tmp.getLatitude()), Double.parseDouble(tmp.getLongitude()));
+
+            // meter와 findMeter 비교해서 넣을거만 answerList에 넣기
+            if(distanceMeter <= Double.parseDouble(findMeter)){
+                answerList.add(tmp);
+            }
+        }
+
         Map map = new HashMap();
-        List list = publicTrashAddressRepository.findAll();
-        map.put("results", list);
+
+        map.put("results", answerList);
         return map;
     }
+
+    private double distanceToMeter(double lat1, double lon1, double lat2, double lon2) {
+
+        double theta = lon1 - lon2;
+        double dist = Math.sin(deg2rad(lat1)) * Math.sin(deg2rad(lat2)) + Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) * Math.cos(deg2rad(theta));
+
+        dist = Math.acos(dist);
+        dist = rad2deg(dist);
+        dist = dist * 60 * 1.1515 * 1609.344;
+
+        return dist;
+    }
+
+    private double deg2rad(double deg) {
+        return (deg * Math.PI / 180.0);
+    }
+
+    private double rad2deg(double rad) {
+        return (rad * 180 / Math.PI);
+    }
+
 }
