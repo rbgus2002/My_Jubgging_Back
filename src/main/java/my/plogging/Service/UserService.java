@@ -163,7 +163,7 @@ public class UserService {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "userId error");
 
         // calculate point
-        int point = dto.getWalkingNum() / 100;
+        int point = dto.getWalkingNum() / 10;
 
 
         // user에게 지급
