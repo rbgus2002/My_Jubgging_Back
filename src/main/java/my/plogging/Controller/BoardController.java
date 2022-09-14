@@ -51,5 +51,10 @@ public class BoardController {
         return boardService.checkAttendingUser(userId, boardId);
     }
 
+    @DeleteMapping("/attend")
+    public Map cancelAttending(@RequestParam Long boardId, @RequestParam Long userId){
+        return boardService.cancelAttendingUser(boardId, userId);
+    }
+
 
 }

@@ -10,5 +10,5 @@ import java.util.Optional;
 public interface AttendingUserRepository extends JpaRepository<AttendingUser, Long> {
     List<AttendingUser> findAttendingUserByBoardIdAndIsUsed(Long boardId, String isUsed);
 
-    List<AttendingUser> findAttendingUserByUser(User user);
+    List<AttendingUser> findAttendingUserByUserAndIsUsed(User user, String isUsed);
 }

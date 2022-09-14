@@ -34,4 +34,8 @@ public class AttendingUser {
     public void changeIsUsedToN(){
         this.isUsed = "N";
     }
+
+    public void changeIsUsed(String tmp){
+        this.isUsed = tmp;
+    }
 }

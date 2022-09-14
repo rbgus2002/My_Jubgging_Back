@@ -248,15 +248,32 @@ public class BoardService {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "userId error");
 
         // nowAttendingNum ++
-        board.get().updateNowAttendingNum();
+        board.get().updateNowAttendingNum(1);
         boardRepository.save(board.get());
 
+        // AttendingUser Table에 이미 존재하는 지 체크
+        // boardId로 attendingUser query
+        List<AttendingUser> attendingUserList = attendingUserRepository.findAttendingUserByBoardIdAndIsUsed(boardId, "N");
+
+        // AttendingUser Table에서 N로 바꾸기
+        boolean exist = false;
+        AttendingUser attendingUser = null;
+        for (AttendingUser tmp : attendingUserList) {
+            if (userId == tmp.getUser().getId()) {
+                exist = true;
+                tmp.changeIsUsed("Y");
+                attendingUser = tmp;
+            }
+        }
+
         // set attendingUser and save
-        AttendingUser attendingUser = AttendingUser.builder()
-                .board(board.get())
-                .user(user.get())
-                .isUsed("Y")
-                .build();
+        if(!exist){
+            attendingUser = AttendingUser.builder()
+                    .board(board.get())
+                    .user(user.get())
+                    .isUsed("Y")
+                    .build();
+        }
         attendingUserRepository.save(attendingUser);
 
         // return
@@ -294,4 +311,40 @@ public class BoardService {
 
         return map;
     }
+
+    public Map cancelAttendingUser(Long boardId, Long userId){
+        Optional<User> user = userRepository.findById(userId);
+        Optional<Board> board = boardRepository.findById(boardId);
+
+        Map map = new HashMap();
+
+        // userId 예외처리
+        if (user.isEmpty())
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "userId error");
+
+        // boardId 예외처리
+        if (board.isEmpty())
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "boardId error");
+
+        // AttendingNum 하나 줄이기
+        board.get().updateNowAttendingNum(-1);
+        boardRepository.save(board.get());
+
+        // boardId로 attendingUser query
+        List<AttendingUser> attendingUserList = attendingUserRepository.findAttendingUserByBoardIdAndIsUsed(boardId, "Y");
+
+        // AttendingUser Table에서 N로 바꾸기
+        for (AttendingUser tmp : attendingUserList) {
+            if (userId == tmp.getUser().getId()) {
+                tmp.changeIsUsed("N");
+                attendingUserRepository.save(tmp);
+                break;
+            }
+        }
+
+        map.put("userId", userId);
+        return map;
+    }
+
+
 }

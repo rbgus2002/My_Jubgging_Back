@@ -11,7 +11,8 @@ import java.time.LocalTime;
 @Data
 @NoArgsConstructor
 public class Board {
-    @Id @GeneratedValue
+    @Id
+    @GeneratedValue
     @Column(name = "board_id")
     private Long id;
 
@@ -42,7 +43,7 @@ public class Board {
     private String isUsed;
 
     @Builder
-    public Board(User user, String title, String content, String place, int peopleNum, String possibleGender, LocalDate date, LocalTime time, String kakaoChatAddress){
+    public Board(User user, String title, String content, String place, int peopleNum, String possibleGender, LocalDate date, LocalTime time, String kakaoChatAddress) {
         this.user = user;
         this.title = title;
         this.content = content;
@@ -58,11 +59,15 @@ public class Board {
         this.isUsed = "Y";
     }
 
-    public void updateModifiedTime(){
+    public void updateModifiedTime() {
         this.modifiedTime = LocalDateTime.now();
     }
 
-    public void updateNowAttendingNum(){
-        this.nowAttendingNum++;
+    public void updateNowAttendingNum(int num) {
+        if (num >= 0)
+            this.nowAttendingNum++;
+        else{
+            this.nowAttendingNum--;
+        }
     }
 }

@@ -113,7 +113,7 @@ public class UserService {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "userId error");
 
         // AttendingUser Table에서 query
-        List<AttendingUser> attendingUserList = attendingUserRepository.findAttendingUserByUser(user.get());
+        List<AttendingUser> attendingUserList = attendingUserRepository.findAttendingUserByUserAndIsUsed(user.get(), "Y");
 
         // boardId로 현재 날짜 이상이면 Response 객체를 리스트에 추가
         for(AttendingUser attendingUser : attendingUserList){
